@@ -34,5 +34,11 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    // config/services.php
+    'lenco' => [
+        'public_key' => env('LENCO_PUBLIC_KEY'),
+        'secret_key' => env('LENCO_SECRET_KEY'),
+    ],
+
 
 ];
