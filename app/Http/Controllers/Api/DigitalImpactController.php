@@ -53,7 +53,7 @@ private function sendDonationEmails(Donation $donation): void
                 'status' => 'pending',
             ]);
 
-            $this->sendDonationEmails($donation);
+           // $this->sendDonationEmails($donation);
 
             return response()->json([
                 'success' => true,
