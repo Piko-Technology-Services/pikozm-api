@@ -114,5 +114,10 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
+    
+    'management_emails' => array_filter(
+        array_map('trim', explode(',', env('MANAGEMENT_EMAILS', '')))
+    ),
+
 
 ];
