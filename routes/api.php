@@ -60,3 +60,8 @@ Route::get('/test-webhook-signature', function () {
     ]);
 });
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/digital-impact/partners', [DigitalImpactController::class, 'getAllPartners']);
+    Route::get('/digital-impact/volunteers', [DigitalImpactController::class, 'getAllVolunteers']);
+    Route::get('/digital-impact/support-requests', [DigitalImpactController::class, 'getAllSupportRequests']);
+});

@@ -363,6 +363,65 @@ public function storeSupportRequest(Request $request)
 }
 
 
+/* ---------------- Fetch All Partners ---------------- */
+public function getAllPartners()
+{
+    try {
+        $partners = PartnerApplication::latest()->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $partners,
+        ], 200);
+
+    } catch (\Throwable $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Unable to fetch partners',
+            'error' => config('app.debug') ? $e->getMessage() : 'Server error',
+        ], 500);
+    }
+}
+
+/* ---------------- Fetch All Volunteers ---------------- */
+public function getAllVolunteers()
+{
+    try {
+        $volunteers = VolunteerApplication::latest()->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $volunteers,
+        ], 200);
+
+    } catch (\Throwable $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Unable to fetch volunteers',
+            'error' => config('app.debug') ? $e->getMessage() : 'Server error',
+        ], 500);
+    }
+}
+
+/* ---------------- Fetch All Support Requests ---------------- */
+public function getAllSupportRequests()
+{
+    try {
+        $requests = SupportRequest::latest()->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $requests,
+        ], 200);
+
+    } catch (\Throwable $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Unable to fetch support requests',
+            'error' => config('app.debug') ? $e->getMessage() : 'Server error',
+        ], 500);
+    }
+}
 
 
 
