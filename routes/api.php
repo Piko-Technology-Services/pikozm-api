@@ -33,6 +33,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard/support', [DigitalImpactController::class, 'getAllDonations']);
 });
 
+use App\Http\Controllers\Api\ImpactFormsController;
+
+Route::prefix('digital-impact')->group(function () {
+    Route::post('/partner', [DigitalImpactController::class, 'storePartner']);
+    Route::post('/volunteer', [DigitalImpactController::class, 'storeVolunteer']);
+    Route::post('/support-request', [DigitalImpactController::class, 'storeSupportRequest']);
+});
+
+
 
 Route::get('/test-webhook-signature', function () {
     // Use the secret from .env (Lenco dashboard secret)
