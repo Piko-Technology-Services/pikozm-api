@@ -19,12 +19,6 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-
-
-// Route::prefix('digital-impact')->group(function () {
-//     Route::post('/support', [DigitalImpactController::class, 'donate']);
-// });
-
 Route::post('/support/initiate', [DigitalImpactController::class, 'initiateDonation']);
 Route::post('/support/processing', [DigitalImpactController::class, 'markProcessing']);
 Route::post('/webhooks/lenco', [DigitalImpactController::class, 'handleLencoWebhook']);
@@ -40,8 +34,6 @@ Route::prefix('digital-impact')->group(function () {
     Route::post('/volunteer', [DigitalImpactController::class, 'storeVolunteer']);
     Route::post('/support-request', [DigitalImpactController::class, 'storeSupportRequest']);
 });
-
-
 
 Route::get('/test-webhook-signature', function () {
     // Use the secret from .env (Lenco dashboard secret)
