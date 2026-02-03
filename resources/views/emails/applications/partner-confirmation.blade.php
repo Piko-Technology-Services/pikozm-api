@@ -5,7 +5,7 @@
 @section('content')
 <h2>Thank You for Your Partnership Interest</h2>
 
-<p>Dear {{ $partner->name }},</p>
+<p>Dear {{ $partner->contact_person }},</p>
 
 <p>
 Thank you for reaching out to partner with <strong>Piko Digital Impact</strong>.
@@ -18,6 +18,8 @@ collaboration opportunities.
 </p>
 
 <ul>
+    <li><strong>Name:</strong> {{ $partner->name }}</li>
+    <li><strong>Contact Person:</strong> {{ $partner->contact_person }}</li>
     <li><strong>Partnership Type:</strong> {{ $partner->partnership_type }}</li>
     <li><strong>Organization Type:</strong> {{ $partner->organization_type }}</li>
     <li><strong>Country:</strong> {{ $partner->country }}</li>

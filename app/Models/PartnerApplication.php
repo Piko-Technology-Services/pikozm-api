@@ -8,6 +8,7 @@ class PartnerApplication extends Model
 {
     protected $fillable = [
         'name',
+        'contact_person',
         'email',
         'phone',
         'country',

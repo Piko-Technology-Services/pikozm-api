@@ -9,6 +9,7 @@
 
 <ul>
     <li><strong>Name:</strong> {{ $partner->name }}</li>
+    <li><strong>Contact Person:</strong> {{ $partner->contact_person }}</li>
     <li><strong>Email:</strong> {{ $partner->email }}</li>
     <li><strong>Phone:</strong> {{ $partner->phone }}</li>
     <li><strong>Country:</strong> {{ $partner->country }}</li>

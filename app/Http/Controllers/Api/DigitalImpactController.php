@@ -224,6 +224,7 @@ public function storePartner(Request $request)
     try {
         $data = $request->validate([
             'name' => 'required|string',
+            'contact_person' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
             'country' => 'required|string',
