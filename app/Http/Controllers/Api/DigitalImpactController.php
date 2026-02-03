@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Log;
 use App\Models\PartnerApplication;
 use App\Models\VolunteerApplication;
 use App\Models\SupportRequest;
+use App\Mail\NewPartnerApplicationMail;
+use App\Mail\PartnerConfirmationMail;
+use App\Mail\NewVolunteerApplicationMail;
+use App\Mail\VolunteerConfirmationMail;
+use App\Mail\NewSupportRequestMail;
+use App\Mail\SupportConfirmationMail;
+
+
 
 class DigitalImpactController extends Controller
 {
@@ -211,8 +219,9 @@ class DigitalImpactController extends Controller
     }
 
      /* ---------------- PARTNER ---------------- */
-    public function storePartner(Request $request)
-    {
+public function storePartner(Request $request)
+{
+    try {
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
@@ -223,17 +232,41 @@ class DigitalImpactController extends Controller
             'message' => 'nullable|string',
         ]);
 
-        PartnerApplication::create($data);
+        $partner = PartnerApplication::create($data);
+
+        // Management alert
+        Mail::to(config('mail.management_emails'))
+            ->send(new NewPartnerApplicationMail($partner));
+
+        // Client confirmation
+        Mail::to($partner->email)
+            ->send(new PartnerConfirmationMail($partner));
 
         return response()->json([
             'success' => true,
             'message' => 'Partnership application submitted successfully',
         ], 201);
+
+    } catch (ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $e->errors(),
+        ], 422);
+
+    } catch (Throwable $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Unable to submit partnership application',
+            'error' => config('app.debug') ? $e->getMessage() : 'Server error',
+        ], 500);
     }
+}
 
     /* ---------------- VOLUNTEER ---------------- */
-    public function storeVolunteer(Request $request)
-    {
+public function storeVolunteer(Request $request)
+{
+    try {
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
@@ -249,21 +282,44 @@ class DigitalImpactController extends Controller
         $nrcPath = $request->file('nrc')->store('volunteers/nrcs', 'public');
         $resumePath = $request->file('resume')->store('volunteers/resumes', 'public');
 
-        VolunteerApplication::create([
+        $volunteer = VolunteerApplication::create([
             ...$data,
             'nrc_path' => $nrcPath,
             'resume_path' => $resumePath,
         ]);
 
+        Mail::to(config('mail.management_emails'))
+            ->send(new NewVolunteerApplicationMail($volunteer));
+
+        Mail::to($volunteer->email)
+            ->send(new VolunteerConfirmationMail($volunteer));
+
         return response()->json([
             'success' => true,
             'message' => 'Volunteer application submitted successfully',
         ], 201);
+
+    } catch (ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $e->errors(),
+        ], 422);
+
+    } catch (Throwable $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Unable to submit volunteer application',
+            'error' => config('app.debug') ? $e->getMessage() : 'Server error',
+        ], 500);
     }
+}
+
 
     /* ---------------- DIGITAL SUPPORT ---------------- */
-    public function storeSupportRequest(Request $request)
-    {
+public function storeSupportRequest(Request $request)
+{
+    try {
         $data = $request->validate([
             'organization_name' => 'required|string',
             'contact_person' => 'required|string',
@@ -276,13 +332,35 @@ class DigitalImpactController extends Controller
             'message' => 'nullable|string',
         ]);
 
-        SupportRequest::create($data);
+        $support = SupportRequest::create($data);
+
+        Mail::to(config('mail.management_emails'))
+            ->send(new NewSupportRequestMail($support));
+
+        Mail::to($support->email)
+            ->send(new SupportConfirmationMail($support));
 
         return response()->json([
             'success' => true,
             'message' => 'Support request submitted successfully',
         ], 201);
+
+    } catch (ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $e->errors(),
+        ], 422);
+
+    } catch (Throwable $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Unable to submit support request',
+            'error' => config('app.debug') ? $e->getMessage() : 'Server error',
+        ], 500);
     }
+}
+
 
 
 
