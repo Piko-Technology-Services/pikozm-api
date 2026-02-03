@@ -424,7 +424,75 @@ public function getAllSupportRequests()
 }
 
 
+public function dashboardOverview()
+{
+    try {
+        // Totals
+        $donationsCount = Donation::count();
+        $supportCount   = SupportRequest::count();
+        $partnerCount   = PartnerApplication::count();
+        $volunteerCount = VolunteerApplication::count();
 
+        // Recent activity (latest 5 combined)
+        $recentDonations = Donation::latest()->take(5)->get()->map(fn ($d) => [
+            'type'  => 'donation',
+            'title' => 'New Donation Received',
+            'meta'  => "{$d->currency} {$d->amount} from {$d->name}",
+            'date'  => $d->created_at,
+        ]);
+
+        $recentPartners = PartnerApplication::latest()->take(5)->get()->map(fn ($p) => [
+            'type'  => 'partner',
+            'title' => 'Partnership Application Submitted',
+            'meta'  => $p->organization_type,
+            'date'  => $p->created_at,
+        ]);
+
+        $recentVolunteers = VolunteerApplication::latest()->take(5)->get()->map(fn ($v) => [
+            'type'  => 'volunteer',
+            'title' => 'Volunteer Application',
+            'meta'  => $v->skills,
+            'date'  => $v->created_at,
+        ]);
+
+        $recentSupport = SupportRequest::latest()->take(5)->get()->map(fn ($s) => [
+            'type'  => 'support',
+            'title' => 'New Support Request',
+            'meta'  => $s->support_needs,
+            'date'  => $s->created_at,
+        ]);
+
+        // Merge + sort
+        $recentActivity = collect()
+            ->merge($recentDonations)
+            ->merge($recentPartners)
+            ->merge($recentVolunteers)
+            ->merge($recentSupport)
+            ->sortByDesc('date')
+            ->take(5)
+            ->values();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'stats' => [
+                    'donations'   => $donationsCount,
+                    'support'     => $supportCount,
+                    'partners'    => $partnerCount,
+                    'volunteers'  => $volunteerCount,
+                ],
+                'recent_activity' => $recentActivity,
+            ],
+        ]);
+
+    } catch (\Throwable $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to load dashboard overview',
+            'error'   => config('app.debug') ? $e->getMessage() : 'Server error',
+        ], 500);
+    }
+}
 
 
 }

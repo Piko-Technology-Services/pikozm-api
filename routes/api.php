@@ -65,3 +65,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/digital-impact/volunteers', [DigitalImpactController::class, 'getAllVolunteers']);
     Route::get('/digital-impact/support-requests', [DigitalImpactController::class, 'getAllSupportRequests']);
 });
+
+Route::middleware(['auth:sanctum'])->get(
+    '/dashboard/overview',
+    [DigitalImpactController::class, 'dashboardOverview']
+);
