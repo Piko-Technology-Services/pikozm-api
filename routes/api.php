@@ -6,8 +6,18 @@ use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DigitalImpactController;
 
+use App\Http\Controllers\Api\ClientPaymentController;
+
 
 Route::get('/', [HealthController::class, 'index']);
+
+
+Route::prefix('payments')->group(function () {
+    Route::post('/initiate', [ClientPaymentController::class, 'initiatePayment']);
+    Route::post('/processing', [ClientPaymentController::class, 'markProcessing']);
+    Route::post('/lenco/webhook', [ClientPaymentController::class, 'handleLencoWebhook']);
+    Route::get('/', [ClientPaymentController::class, 'getAllPayments']);
+});
 
 Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
@@ -22,6 +32,8 @@ Route::prefix('auth')->group(function () {
 Route::post('/support/initiate', [DigitalImpactController::class, 'initiateDonation']);
 Route::post('/support/processing', [DigitalImpactController::class, 'markProcessing']);
 Route::post('/webhooks/lenco', [DigitalImpactController::class, 'handleLencoWebhook']);
+
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard/support', [DigitalImpactController::class, 'getAllDonations']);

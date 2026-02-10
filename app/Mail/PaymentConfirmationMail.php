@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Mail;
+
+use App\Models\ClientPayment;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class PaymentConfirmationMail extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public ClientPayment $payment;
+
+    public function __construct(ClientPayment $payment)
+    {
+        $this->payment = $payment;
+    }
+
+    public function build()
+    {
+        return $this
+            ->subject('Payment Confirmation – ' . $this->payment->reference)
+            ->view('emails.payment-confirmation');
+    }
+}
