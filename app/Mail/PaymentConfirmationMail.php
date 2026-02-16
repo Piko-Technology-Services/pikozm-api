@@ -21,6 +21,7 @@ class PaymentConfirmationMail extends Mailable
     public function build()
     {
         return $this
+            ->from('no-reply@pikozm.com', 'PikoPay') // empty name
             ->subject('New Payment Received – ' . $this->payment->purpose)
             ->view('emails.pikopay.received')->with([
                 'payment' => $this->payment,
