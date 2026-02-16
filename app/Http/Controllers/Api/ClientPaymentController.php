@@ -41,13 +41,13 @@ class ClientPaymentController extends Controller
                 'status'    => 'pending',
             ]);
 
-             if ($payment->email) {
-                Mail::to($payment->email)
-                    ->send(new PaymentThankYouMail($payment));
+            //  if ($payment->email) {
+            //     Mail::to($payment->email)
+            //         ->send(new PaymentThankYouMail($payment));
                 
-                Mail::to(config('mail.management_emails'))
-                    ->send(new PaymentConfirmationMail($payment));
-            }
+            //     Mail::to(config('mail.management_emails'))
+            //         ->send(new PaymentConfirmationMail($payment));
+            // }
 
             return response()->json([
                 'success' => true,
