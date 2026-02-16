@@ -22,6 +22,8 @@ class PaymentConfirmationMail extends Mailable
     {
         return $this
             ->subject('Payment Confirmation – ' . $this->payment->reference)
-            ->view('emails.payment-confirmation');
+            ->view('emails.pikopay.received')->with([
+                'payment' => $this->payment,
+            ]);
     }
 }
