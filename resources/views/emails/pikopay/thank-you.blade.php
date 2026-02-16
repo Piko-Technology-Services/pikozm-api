@@ -48,9 +48,9 @@
 
     <h2>Thank You, {{ $payment->full_name }}!</h2>
     <p>
-        We are thrilled to confirm that we have received your Payment of 
+        We have received your Payment of 
         <span class="highlight">{{ $payment->currency }} {{ number_format($payment->amount, 2) }}</span> 
-        for the project <span class="highlight">{{ $payment->purpose }}</span>.
+        Purpose: <span class="highlight">{{ $payment->purpose }}</span>.
     </p>
     
 
