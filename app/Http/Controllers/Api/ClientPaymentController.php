@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Throwable;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PaymentConfirmationMail;
+use App\Mail\PaymentThankYouMail;
 
 class ClientPaymentController extends Controller
 {
