@@ -46,14 +46,13 @@
              style="max-width: 150px; height: auto;">
     </div>
 
-    <h2>New Payment Received</h2>
-    <p>A new donation has been received via Piko Digital Impact:</p>
-    <ul>
-        <li><strong>Donor:</strong> {{ $payment->full_name }} ({{ $payment->email }})</li>
-        <li><strong>Amount:</strong> {{ $payment->currency }} {{ number_format($payment->amount, 2) }}</li>
-        <li><strong>Purpose:</strong> {{ $payment->purpose }}</li>
-        <li><strong>Reference:</strong> {{ $payment->reference }}</li>
-    </ul>
+    <h2>Thank You, {{ $payment->full_name }}!</h2>
+    <p>
+        We are thrilled to confirm that we have received your Payment of 
+        <span class="highlight">{{ $payment->currency }} {{ number_format($payment->amount, 2) }}</span> 
+        for the project <span class="highlight">{{ $payment->purpose }}</span>.
+    </p>
+    
 
     <p class="footer">
         This email confirms your Payment through PikoPay. If you have any questions, contact us at support@pikozm.com.

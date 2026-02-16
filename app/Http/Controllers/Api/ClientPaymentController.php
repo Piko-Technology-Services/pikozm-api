@@ -132,6 +132,9 @@ class ClientPaymentController extends Controller
 
             if ($payment->email) {
                 Mail::to($payment->email)
+                    ->send(new PaymentThankYouMail($payment));
+                
+                Mail::to(config('mail.management_emails'))
                     ->send(new PaymentConfirmationMail($payment));
             }
         }
@@ -144,6 +147,9 @@ class ClientPaymentController extends Controller
 
             if ($payment->email) {
                 Mail::to($payment->email)
+                    ->send(new PaymentThankYouMail($payment));
+
+                Mail::to(config('mail.management_emails'))
                     ->send(new PaymentConfirmationMail($payment));
             }
         }
