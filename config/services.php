@@ -39,6 +39,11 @@ return [
         'public_key' => env('LENCO_PUBLIC_KEY'),
         'secret_key' => env('LENCO_SECRET_KEY'),
     ],
+    'lenco_payments' => [
+        'public_key' => env('LENCO_PUBLIC_PAYMENTS_KEY'),
+        'secret_key' => env('LENCO_SECRET_PAYMENTS_KEY'),
+        'base_url' => env('LENCO_BASE_PAYMENTS_URL'),
+    ],
 
 
 ];

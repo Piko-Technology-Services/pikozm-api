@@ -45,7 +45,7 @@ class ClientPaymentController extends Controller
                 'message' => 'Payment initialized',
                 'data' => [
                     'reference'  => $reference,
-                    'public_key'=> config('services.lenco.public_key'),
+                    'public_key'=> config('services.lenco_payments.public_key'),
                     'payment'   => $payment,
                 ],
             ], 201);
@@ -100,7 +100,7 @@ class ClientPaymentController extends Controller
         $payload   = $request->getContent();
         $signature = $request->header('X-Lenco-Signature');
 
-        $apiToken = config('services.lenco.secret_key');
+        $apiToken = config('services.lenco_payments.secret_key');
         $webhookHashKey = hash('sha256', $apiToken);
 
         $computedSignature = hash_hmac(
