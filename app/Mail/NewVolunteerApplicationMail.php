@@ -21,7 +21,7 @@ class NewVolunteerApplicationMail extends Mailable
     public function build()
     {
         return $this
-            ->subject('New Volunteer Application Received')
+            ->subject('New Team Member Application Received')
             ->view('emails.applications.volunteer-management');
     }
 }

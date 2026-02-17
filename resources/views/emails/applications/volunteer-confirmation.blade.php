@@ -1,15 +1,15 @@
 @extends('emails.layout')
 
-@section('title', 'Volunteer Application Received')
+@section('title', 'Team Member Application Received')
 
 @section('content')
-<h2>Thank You for Volunteering!</h2>
+<h2>Thank You for Your Application!</h2>
 
 <p>Dear {{ $volunteer->name }},</p>
 
 <p>
 Thank you for applying to be part of the <strong>Piko Digital Impact</strong>
-volunteer team.
+team.
 </p>
 
 <p>

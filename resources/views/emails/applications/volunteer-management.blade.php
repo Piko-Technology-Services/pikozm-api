@@ -1,9 +1,9 @@
 @extends('emails.layout')
 
-@section('title', 'New Volunteer Application')
+@section('title', 'New Team Member Application')
 
 @section('content')
-<h2>New Volunteer Application</h2>
+<h2>New Team Member Application</h2>
 
 <ul>
     <li><strong>Name:</strong> {{ $volunteer->name }}</li>

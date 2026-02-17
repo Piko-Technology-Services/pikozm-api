@@ -21,7 +21,7 @@ class VolunteerConfirmationMail extends Mailable
     public function build()
     {
         return $this
-            ->subject('Your Volunteer Application Was Received')
+            ->subject('Your Team Member Application Was Received')
             ->view('emails.applications.volunteer-confirmation');
     }
 }
