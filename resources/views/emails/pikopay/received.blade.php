@@ -47,9 +47,9 @@
     </div>
 
     <h2>New Payment Received</h2>
-    <p>A new donation has been received via Piko Digital Impact:</p>
+    <p>A new Payment has been received via PikoPay:</p>
     <ul>
-        <li><strong>Donor:</strong> {{ $payment->full_name }} ({{ $payment->email }})</li>
+        <li><strong>From:</strong> {{ $payment->full_name }} ({{ $payment->email }})</li>
         <li><strong>Amount:</strong> {{ $payment->currency }} {{ number_format($payment->amount, 2) }}</li>
         <li><strong>Purpose:</strong> {{ $payment->purpose }}</li>
         <li><strong>Reference:</strong> {{ $payment->reference }}</li>
